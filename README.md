@@ -311,3 +311,215 @@ FR 47: Manage Platform Settings
 Admin shall configure platform settings and policies.
 FR 48: Suspend or Reactivate Accounts
 Admin shall suspend or reactivate user accounts when necessary.
+
+
+
+
+ill give the functional requirements 
+for each module act as flow designer and give the overview for the module alone no need to provide the whole explanation.
+
+1. Authentication and User Account Management​
+
+Registration for all user types: Players, Teams,
+Organizers, Sponsors, Fans, Influencers, Brands.​
+
+Login for all registered users using
+email/username and password.​
+
+Forgot password functionality via email
+verification.​
+
+Account verification for:​
+
+Player portfolios​
+
+Teams (corporate verification)​
+
+Influencers​
+Brands​
+
+Secure multi-role access control for all user
+categories.​
+
+2. Player & Influencer Profile Management​
+
+Create and update portfolios (players,
+influencers).​
+
+Upload achievements, tournament
+records, rankings, certifications, and
+gameplay highlights.​
+
+Add and manage social media handles (for
+influencers).​
+
+Set promotional pricing (influencers).​
+
+Submit portfolio/profile for admin
+verification.​
+
+View verification and profile completion
+status.​
+
+Players can register for eligible
+tournaments​
+
+​
+
+3. Team Profile & Activity Management​
+
+Teams can view player profiles.​
+
+Submit team verification requests.​
+
+Publish newsletters and announcements.​
+
+Post reviews and tournament feedback.​
+
+​4. Brand Profile Management​
+
+Brands can update company profile details.​
+
+Upload product details, images,
+promotions.​
+
+Manage favorite/shortlisted influencers.​
+
+​
+
+5. Influencer & Player Discovery and Search​
+
+Search influencers or players using keywords.​
+
+Filter by category, audience size, engagement
+rate, game type, pricing, etc.​
+
+View detailed profiles and promotional pricing.​
+
+6. Tournament Management​
+
+Organizers can host tournaments.​
+
+Configure tournament details such as:​
+
+Rules​
+
+Schedules​
+
+Game titles​
+
+Formats​
+
+Participant limits​
+
+Registration deadlines​
+
+Accept and approve player/team registrations.​
+
+Create fixtures, brackets, and match schedules.​
+
+Define and manage prize pools.​
+
+​​​7. Sponsorship & Collaboration Management​
+
+Sponsors can view player and team
+profiles.​
+
+Sponsors can contact players or teams.​
+
+Brands can send collaboration or
+sponsorship requests to influencers or
+players.​
+
+Influencers/players/teams can accept or
+reject requests.​
+
+Users can cancel pending requests.​
+
+System maintains collaboration statuses:
+Pending, Accepted, Rejected, Active,
+Completed.​
+
+View history of past collaborations.​
+
+Players or teams can accept sponsorship
+agreements.​
+
+8. Fan Engagement & Community Management​
+
+Fans can join community discussions and gaming
+groups.​
+
+Subscribe to tournament organizers.​
+
+Watch live streams of tournaments.​
+
+Participate in discussion forums.​
+
+Interact with content through likes, comments,
+shares.​
+
+​
+
+9. Notification Management​
+
+Tournament notifications: registrations,
+approvals, schedules, results.​
+
+Sponsorship/collaboration notifications:
+requests, approvals, updates.​
+
+Account and verification notifications.​
+
+Community notifications:
+announcements, newsletters, live
+streams, activities.​
+
+​​​10. Campaign Tracking & Analytics​
+
+Brands can track campaign progress and
+performance.​
+
+Influencers access dashboards showing
+engagement metrics and collaboration
+stats.​
+
+Generate campaign and collaboration
+reports.​
+
+Brands and influencers can view
+analytics reports.​
+
+Engagement authenticity detection (fake
+follower/engagement detection).​
+
+​
+
+11. Administration Management​
+
+Admin verifies:​
+
+Player portfolios​
+
+Team accounts​
+
+Influencer accounts​
+
+Brand accounts​
+
+Approve or reject any user registration requiring
+verification.​
+
+Manage user accounts: activate, suspend,
+remove, reactivate.​
+
+Monitor overall platform activities: tournaments,
+sponsorships, collaborations, community
+content.​
+
+Manage game/esports categories.​
+
+Manage platform settings & policies.​
+
+Access platform-wide analytics and reports.​
+
