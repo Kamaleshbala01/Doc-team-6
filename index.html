@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Tournament Organizer Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+     
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<!-- Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet"
+          href="../styles/dashboard.css">
+</head>
+<body>
+<div class="layout">
+
+        <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                
+            </div>
+            <div>
+                <h2>GameArena</h2>
+                <span>Tournament Organizer</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li class="active">
+                    <a href="#">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                </li>
+                 <li>
+                    <a href="./tournament-management.html">
+                        <i class="fa-solid fa-trophy"></i>
+                        Tournaments
+                    </a>
+                </li>
+                <li>
+                    <a href="./create-tournament.html">
+                        <i class="fa-solid fa-plus"></i>
+                        Create Tournament
+
+                    </a>
+                </li>
+                <li>
+                    <a href="./teams-participation.html">
+                        <i class="fa-solid fa-people-group"></i>
+                        Teams
+                    </a>
+                </li>
+                <li>
+                    <a href="./torunament-brackets.html">
+                        <i class="fa-solid fa-gamepad"></i>
+                        Brackets
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-sponsors.html">
+                        <i class="fa-solid fa-user-group"></i>
+                        Sponsors
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-payouts.html">
+                        <i class="fa-solid fa-handshake"></i>
+                        Payouts
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-anouncement.html">
+                        <i class="fa-solid fa-wallet"></i>
+                        Announcements
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-faqs.html">
+                        <i class="fa-solid fa-message"></i>
+                        FAQs
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-analytics.html">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        Analytics
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="sidebar-bottom">
+            <button class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+ 
+        <header class="topbar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text"
+                       placeholder="Search tournaments, teams, players...">
+            </div>
+            <div class="top-actions">
+                <button>
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+                <button>
+                    <i class="fa-regular fa-envelope"></i>
+                </button>
+                <div class="profile">
+                    <img src="https://i.pravatar.cc/80?img=12">
+                    <div>
+                        <h4>GameArena</h4>
+                        <span>Organizer</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div>
+                <h1>
+                    Welcome Back 
+                </h1>
+                <p>
+                    Manage tournaments, registrations,
+                    sponsors, teams and analytics from one dashboard.
+                </p>
+            </div>
+            <button class="primary-btn">
+                <i class="fa-solid fa-plus"></i>
+                Create Tournament
+            </button>
+        </section>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="icon purple">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2>18</h2>
+                <p>Total Tournaments</p>
+                <span>+12%</span>
+            </div>
+            <div class="stat-card">
+                <div class="icon cyan">
+                    <i class="fa-solid fa-calendar"></i>
+                </div>
+                <h2>6</h2>
+                <p>Upcoming</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon green">
+                    <i class="fa-solid fa-circle-play"></i>
+                </div>
+                <h2>2</h2>
+                <p>Live</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon orange">
+                    <i class="fa-solid fa-flag-checkered"></i>
+                </div>
+                <h2>10</h2>
+                <p>Completed</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon cyan">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <h2>430</h2>
+                <p>Total Teams</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon purple">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                </div>
+                <h2>â‚¹12.4L</h2>
+                <p>Revenue</p>
+            </div>
+        </section>
+   
+        <section class="quick-actions">
+            <h2>
+                Quick Actions
+            </h2>
+            <div class="action-grid">
+                <button class="action-card" id="createbtn">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Create Tournament</span>
+                </button>
+                <button class="action-card" id="manageTeam">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Manage Teams</span>
+                </button>
+                <button class="action-card" id="inviteSponsor">
+                    <i class="fa-solid fa-handshake"></i>
+                    <span>Invite Sponsors</span>
+                </button>
+                
+                <button
+                    class="action-card"
+                    id="exportReportBtn"
+                >
+                    <i class="fa-solid fa-file-export"></i>
+                    <span>Export Report</span>
+                </button>
+
+            </div>
+        </section> 
+        <section class="dashboard-grid">
+ 
+            <div class="left-column">
+ 
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Recent Tournaments</h2>
+                        <button class="secondary-btn">
+                            View All
+                        </button>
+                    </div>
+                    <table class="tournament-table">
+                        <thead>
+                        <tr>
+                            <th>Tournament</th>
+                            <th>Game</th>
+                            <th>Teams</th>
+                            <th>Status</th>
+                            <th>Prize Pool</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Summer Clash 2026</td>
+                            <td>Valorant</td>
+                            <td>32</td>
+                            <td>
+                                <span class="badge live">
+                                    Live
+                                </span>
+                            </td>
+                            <td>â‚¹2,00,000</td>
+                            <td>
+                                <button class="table-btn">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BGMI Pro League</td>
+                            <td>BGMI</td>
+                            <td>64</td>
+                            <td>
+                                <span class="badge upcoming">
+                                    Upcoming
+                                </span>
+                            </td>
+                            <td>â‚¹5,00,000</td>
+                            <td>
+                                <button class="table-btn">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rocket Masters</td>
+                            <td>Rocket League</td>
+                            <td>16</td>
+                            <td>
+                                <span class="badge completed">
+                                    Completed
+                                </span>
+                            </td>
+                            <td>â‚¹75,000</td>
+                            <td>
+                                <button class="table-btn">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>COD Open</td>
+                            <td>Call of Duty</td>
+                            <td>48</td>
+                            <td>
+                                <span class="badge upcoming">
+                                    Upcoming
+                                </span>
+                            </td>
+                            <td>â‚¹1,20,000</td>
+                            <td>
+                                <button class="table-btn">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h2>
+                            Registration Analytics
+                        </h2>
+                        <select>
+                            <option>Last 30 Days</option>
+                            <option>Last 7 Days</option>
+                            <option>Last Year</option>
+                        </select>
+                    </div>
+                    <canvas id="registrationChart"
+                            height="130">
+                    </canvas>
+                </div>
+            </div>
+ 
+            <div class="right-column">
+           
+                <div class="card">
+                    <h2>
+                        Tournament Status
+                    </h2>
+                    <canvas id="statusChart"
+                            height="220">
+                    </canvas>
+                </div>
+             
+                <div class="card">
+                    <h2>
+                        Latest Registrations
+                    </h2>
+                    <div class="registration-list">
+                        <div class="registration-item">
+                            <img src="https://i.pravatar.cc/45?img=14">
+                            <div>
+                                <h4>
+                                    Team Alpha
+                                </h4>
+                                <p>
+                                    Valorant
+                                </p>
+                            </div>
+                            <span class="success">
+                                Verified
+                            </span>
+                        </div>
+                        <div class="registration-item">
+                            <img src="https://i.pravatar.cc/45?img=22">
+                            <div>
+                                <h4>
+                                    Night Hawks
+                                </h4>
+                                <p>
+                                    BGMI
+                                </p>
+                            </div>
+                            <span class="warning">
+                                Pending
+                            </span>
+                        </div>
+                        <div class="registration-item">
+                            <img src="https://i.pravatar.cc/45?img=31">
+                            <div>
+                                <h4>
+                                    Team Nexus
+                                </h4>
+                                <p>
+                                    CS2
+                                </p>
+                            </div>
+                            <span class="success">
+                                Verified
+                            </span>
+                        </div>
+                    </div>
+                </div>
+       
+                <div class="card">
+                    <h2>
+                        Recent Activities
+                    </h2>
+                    <ul class="timeline">
+                        <li>
+                            Tournament Published
+                        </li>
+                        <li>
+                            Sponsor Joined
+                        </li>
+                        <li>
+                            25 Teams Registered
+                        </li>
+                        <li>
+                            Brackets Generated
+                        </li>
+                        <li>
+                            Prize Pool Updated
+                        </li>
+                    </ul>
+                </div>
+    
+
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>
+                Â© 2026 GameArena Tournament Platform
+            </p>
+            <div>
+                <a href="#">
+                    Privacy
+                </a>
+                <a href="#">
+                    Terms
+                </a>
+                <a href="#">
+                    Support
+                </a>
+            </div>
+        </footer>
+    </main>
+</div>
+<div
+    id="exportModal"
+    class="modal-overlay"
+>
+
+    <div class="export-modal">
+
+        <div class="modal-header">
+
+            <h2>
+                Export Dashboard Report
+            </h2>
+
+            <button
+                id="closeExportModal"
+                class="close-btn"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <h3>
+                Organizer Summary
+            </h3>
+
+            <div class="export-section">
+
+                <p>
+                    <strong>
+                        Total Tournaments:
+                    </strong>
+                    18
+                </p>
+
+                <p>
+                    <strong>
+                        Upcoming:
+                    </strong>
+                    6
+                </p>
+
+                <p>
+                    <strong>
+                        Live:
+                    </strong>
+                    2
+                </p>
+
+                <p>
+                    <strong>
+                        Completed:
+                    </strong>
+                    10
+                </p>
+
+                <p>
+                    <strong>
+                        Total Teams:
+                    </strong>
+                    430
+                </p>
+
+                <p>
+                    <strong>
+                        Revenue:
+                    </strong>
+                    ₹12.4 Lakhs
+                </p>
+
+            </div>
+
+            <h3>
+                Recent Tournaments
+            </h3>
+
+            <ul class="export-list">
+
+                <li>Summer Clash 2026</li>
+                <li>BGMI Pro League</li>
+                <li>Rocket Masters</li>
+                <li>COD Open</li>
+
+            </ul>
+
+            <h3>
+                Recent Activities
+            </h3>
+
+            <ul class="export-list">
+
+                <li>Tournament Published</li>
+                <li>Sponsor Joined</li>
+                <li>25 Teams Registered</li>
+                <li>Brackets Generated</li>
+                <li>Prize Pool Updated</li>
+
+            </ul>
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button
+                class="secondary-btn"
+                id="cancelExportBtn"
+            >
+                Cancel
+            </button>
+
+<div
+    id="toast"
+    class="toast"
+>
+    ✅ Report Exported Successfully
+</div>
+
+<script src="../scripts/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+</html>

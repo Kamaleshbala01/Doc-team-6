@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Announcements</title>
+
+<link rel="stylesheet" href="../styles/dashboard.css">
+<link rel="stylesheet" href="../styles/tournament-anouncement.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<!-- Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    rel="stylesheet"
+/>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+      <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                
+            </div>
+            <div>
+                <h2>GameArena</h2>
+                <span>Tournament Organizer</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li >
+                    <a href="./index.html">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                </li>
+                 <li>
+                    <a href="./tournament-management.html">
+                        <i class="fa-solid fa-trophy"></i>
+                        Tournaments
+                    </a>
+                </li>
+                <li>
+                    <a href="./create-tournament.html">
+                        <i class="fa-solid fa-plus"></i>
+                        Create Tournament
+                    </a>
+                </li>
+                <li>
+                    <a href="./teams-participation.html">
+                        <i class="fa-solid fa-people-group"></i>
+                        Teams
+                    </a>
+                </li>
+                <li>
+                    <a href="./torunament-brackets.html">
+                        <i class="fa-solid fa-gamepad"></i>
+                        Brackets
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-sponsors.html">
+                        <i class="fa-solid fa-user-group"></i>
+                        Sponsors
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-payouts.html">
+                        <i class="fa-solid fa-handshake"></i>
+                        Payouts
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <i class="fa-solid fa-wallet"></i>
+                        Announcements
+                    </a>
+                </li>   
+                <li>
+                    <a href="./tournament-faqs.html">
+                        <i class="fa-solid fa-message"></i>
+                        FAQs
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-analytics.html">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        Analytics
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="sidebar-bottom">
+            <button class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+
+    <div class="main-content">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <h2>
+                Tournament Announcements
+            </h2>
+
+        </div>
+
+        <!-- CONTENT -->
+
+        <main class="main-wrapper">
+
+            <!-- TOURNAMENT LIST -->
+
+            <div
+                id="tournamentList"
+                class="card"
+            >
+
+                <div class="header-row">
+
+                    <h2>
+                        Select Tournament
+                    </h2>
+
+                </div>
+
+                <div
+                    id="tournamentGrid"
+                    class="tournament-grid"
+                >
+
+                    <!-- JS RENDER -->
+
+                </div>
+
+            </div>
+
+            <!-- ANNOUNCEMENT VIEW -->
+
+            <div id="announcementView">
+
+                <button
+                    onclick="goBack()"
+                    class="secondary-btn back-btn"
+                >
+                    ← Back To Tournaments
+                </button>
+
+                <div class="header-row">
+
+                    <div>
+
+                        <h2 id="tournamentTitle">
+                            Tournament Name
+                        </h2>
+
+                        <p class="subtitle">
+                            Manage tournament announcements
+                        </p>
+
+                    </div>
+
+                    <button
+                        id="createAnnouncementBtn"
+                        class="primary-btn"
+                    >
+                        <i class="fa-solid fa-plus"></i>
+                        Create Announcement
+                    </button>
+
+                </div>
+
+                <div
+                    id="announcementList"
+                    class="announcement-list"
+                >
+
+                    <!-- JS RENDER -->
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<!-- CREATE ANNOUNCEMENT MODAL -->
+
+<div
+    id="announcementModal"
+    class="modal-overlay"
+>
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <h3>
+                Create Announcement
+            </h3>
+
+            <button
+                id="closeModalBtn"
+                class="close-modal"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div class="modal-content">
+
+            <!-- <div class="form-group">
+
+                <label>
+                    Announcement Title
+                </label>
+
+                <input
+                    type="text"
+                    id="announcementTitle"
+                    class="modal-input"
+                    placeholder="Enter announcement title"
+                >
+
+            </div> -->
+<div class="form-group">
+
+    <label>Announcement Title</label>
+
+    <input
+        type="text"
+        id="announcementTitle"
+        class="modal-input"
+        placeholder="Enter announcement title"
+    >
+
+    <span
+        id="titleError"
+        class="error-message"
+    ></span>
+
+</div>
+
+<div class="form-group">
+
+    <label>Announcement Content</label>
+
+    <textarea
+        id="announcementBody"
+        class="modal-textarea"
+        placeholder="Enter announcement details..."
+    ></textarea>
+
+    <span
+        id="bodyError"
+        class="error-message"
+    ></span>
+
+</div>
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button
+                id="publishBtn"
+                class="primary-btn"
+            >
+                <i class="fa-solid fa-paper-plane"></i>
+                Publish Announcement
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="../scripts/tournament-announcement.js"></script>
+
+</body>
+</html>

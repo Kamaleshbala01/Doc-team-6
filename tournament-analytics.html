@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics</title>
+
+<link rel="stylesheet" href="../styles/dashboard.css">
+<link rel="stylesheet" href="../styles/tournament-analytics.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<!-- Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                
+            </div>
+            <div>
+                <h2>GameArena</h2>
+                <span>Tournament Organizer</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li >
+                    <a href="./index.html">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                </li>
+                 <li>
+                    <a href="./tournament-management.html">
+                        <i class="fa-solid fa-trophy"></i>
+                        Tournaments
+                    </a>
+                </li>
+                <li>
+                    <a href="./create-tournament.html">
+                        <i class="fa-solid fa-plus"></i>
+                        Create Tournament
+                    </a>
+                </li>
+                <li>
+                    <a href="./teams-participation.html">
+                        <i class="fa-solid fa-people-group"></i>
+                        Teams
+                    </a>
+                </li>
+                <li>
+                    <a href="./torunament-brackets.html">
+                        <i class="fa-solid fa-gamepad"></i>
+                        Brackets
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-sponsors.html">
+                        <i class="fa-solid fa-user-group"></i>
+                        Sponsors
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-payouts.html">
+                        <i class="fa-solid fa-handshake"></i>
+                        Payouts
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-anouncement.html">
+                        <i class="fa-solid fa-wallet"></i>
+                        Announcements
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-faqs.html">
+                        <i class="fa-solid fa-message"></i>
+                        FAQs
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        Analytics
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="sidebar-bottom">
+            <button class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+        </div>
+    </aside>
+
+    
+    <div class="main-wrapper">
+
+        
+        <div class="topbar">
+            <h2>Analytics Dashboard</h2>
+        </div>
+
+        
+        <main class="main-content">
+
+            
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <h2>18</h2>
+                    <p>Total Tournaments</p>
+                </div>
+
+                <div class="stat-card">
+                    <h2>320</h2>
+                    <p>Players</p>
+                </div>
+
+                <div class="stat-card">
+                    <h2>₹6.7L</h2>
+                    <p>Revenue</p>
+                </div>
+
+                <div class="stat-card">
+                    <h2>7</h2>
+                    <p>Sponsors</p>
+                </div>
+
+            </div>
+
+            
+            <div class="chart-grid">
+
+                
+                <div class="card">
+                    <h3>Tournament Growth</h3>
+                    <div class="chart-container">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+
+                
+                <div class="card">
+                    <h3>Player Participation</h3>
+                    <div class="chart-container">
+                        <canvas id="playerChart"></canvas>
+                    </div>
+                </div>
+
+                
+                <div class="card">
+                    <h3>Revenue Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+
+                
+                <div class="card">
+                    <h3>Prize Split</h3>
+                    <div class="chart-container">
+                        <canvas id="prizeChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const commonOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: {
+            labels: {
+                color: "#F8FAFC"
+            }
+        }
+    },
+    scales: {
+        x: {
+            ticks: { color: "#94A3B8" }
+        },
+        y: {
+            ticks: { color: "#94A3B8" }
+        }
+    }
+};
+
+// ✅ LINE
+new Chart(document.getElementById("growthChart"), {
+    type: "line",
+    data: {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+        datasets: [{
+            label: "Tournaments",
+            data: [5, 8, 12, 14, 18],
+            borderColor: "#7C3AED",
+            backgroundColor: "rgba(124,58,237,0.2)",
+            fill: true
+        }]
+    },
+    options: commonOptions
+});
+
+// ✅ BAR
+new Chart(document.getElementById("playerChart"), {
+    type: "bar",
+    data: {
+        labels: ["BGMI", "Valorant", "COD"],
+        datasets: [{
+            label: "Players",
+            data: [200, 150, 100],
+            backgroundColor: "#06B6D4"
+        }]
+    },
+    options: commonOptions
+});
+
+// ✅ PIE
+new Chart(document.getElementById("revenueChart"), {
+    type: "pie",
+    data: {
+        labels: ["Sponsors", "Fees", "Ads"],
+        datasets: [{
+            data: [60, 25, 15],
+            backgroundColor: ["#7C3AED","#06B6D4","#22C55E"]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+
+// ✅ DONUT
+new Chart(document.getElementById("prizeChart"), {
+    type: "doughnut",
+    data: {
+        labels: ["1st", "2nd", "3rd"],
+        datasets: [{
+            data: [50, 30, 20],
+            backgroundColor: ["#7C3AED","#06B6D4","#F59E0B"]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+
+</script>
+
+</body>
+</html>

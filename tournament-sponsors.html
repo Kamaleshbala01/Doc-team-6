@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sponsors</title>
+
+<link rel="stylesheet" href="../styles/dashboard.css">
+<link rel="stylesheet" href="../styles/tournament-sponsors.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<!-- Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                
+            </div>
+            <div>
+                <h2>GameArena</h2>
+                <span>Tournament Organizer</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li >
+                    <a href="./index.html">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                </li>
+                 <li>
+                    <a href="./tournament-management.html">
+                        <i class="fa-solid fa-trophy"></i>
+                        Tournaments
+                    </a>
+                </li>
+                <li>
+                    <a href="./create-tournament.html">
+                        <i class="fa-solid fa-plus"></i>
+                        Create Tournament
+                    </a>
+                </li>
+                <li>
+                    <a href="./teams-participation.html">
+                        <i class="fa-solid fa-people-group"></i>
+                        Teams
+                    </a>
+                </li>
+                <li>
+                    <a href="./torunament-brackets.html">
+                        <i class="fa-solid fa-gamepad"></i>
+                        Brackets
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <i class="fa-solid fa-user-group"></i>
+                        Sponsors
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-payouts.html">
+                        <i class="fa-solid fa-handshake"></i>
+                        Payouts
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-anouncement.html">
+                        <i class="fa-solid fa-wallet"></i>
+                        Announcements
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-faqs.html">
+                        <i class="fa-solid fa-message"></i>
+                        FAQs
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-analytics.html">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        Analytics
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="sidebar-bottom">
+            <button class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+        </div>
+    </aside>
+
+
+    <div class="main-content">
+           <header class="topbar">
+            <div>
+                
+            </div>
+            <div class="top-actions">
+                <button>
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+                <button>
+                    <i class="fa-regular fa-envelope"></i>
+                </button>
+                <div class="profile">
+                    <img src="https://i.pravatar.cc/80?img=12">
+                    <div>
+                        <h4>GameArena</h4>
+                        <span>Organizer</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+    
+        
+
+    
+        <main class="main-wrapper">
+
+    <div class="sponsor-layout">
+
+        <!-- LEFT SIDE -->
+
+        <div class="sponsor-main">
+
+            <!-- My Sponsors -->
+
+            <div class="card">
+
+                <div class="table-actions">
+            <div class="section-header">
+
+                <p >
+                    My Sponsors
+                </p>
+
+            </div>
+
+                    <input
+                        type="text"
+                        id="mySponsorSearch"
+                        class="search-input"
+                        placeholder="Search My Sponsors..."
+                    >
+
+                </div>
+
+                <div class="table-scroll">
+
+                    <table class="tournament-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="mySponsorsBody">
+
+                            <!-- JS RENDER -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- All Sponsors -->
+
+            <div class="card">
+
+                <div class="table-actions">
+                      <div class="section-header">
+
+                <p >
+                    All Sponsors
+                </p>
+
+            </div>
+
+                    <input
+                        type="text"
+                        id="allSponsorSearch"
+                        class="search-input"
+                        placeholder="Search All Sponsors..."
+                    >
+
+                </div>
+
+                <div class="table-scroll">
+
+                    <table class="tournament-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="allSponsorsBody">
+
+                            <!-- JS RENDER -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT PANEL -->
+<div class="chat-panel card" id="chatPanel">
+
+    <div class="chat-placeholder">
+
+        <i
+            class="fa-solid fa-comments"
+            style="
+                font-size:48px;
+                color:var(--primary);
+            "
+        ></i>
+
+        <h3 style="margin-top:16px;">
+            Sponsor Conversations
+        </h3>
+
+        <p>
+            Click any Chat button from the sponsor
+            list to start a conversation.
+        </p>
+
+    </div>
+
+</div>
+
+    </div>
+
+</main>
+
+ <script src="../scripts/tournament-sponsors.js"></script> 
+
+</body>
+</html>

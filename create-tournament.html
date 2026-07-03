@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Tournament</title>
+
+    <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/create-tournament.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<!-- Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                
+            </div>
+            <div>
+                <h2>GameArena</h2>
+                <span>Tournament Organizer</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li >
+                    <a href="./index.html">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                </li>
+                 <li>
+                    <a href="./tournament-management.html">
+                        <i class="fa-solid fa-trophy"></i>
+                        Tournaments
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <i class="fa-solid fa-plus"></i>
+                        Create Tournament
+                    </a>
+                </li>
+                <li>
+                    <a href="./teams-participation.html">
+                        <i class="fa-solid fa-people-group"></i>
+                        Teams
+                    </a>
+                </li>
+                <li>
+                    <a href="./torunament-brackets.html">
+                        <i class="fa-solid fa-gamepad"></i>
+                        Brackets
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-sponsors.html">
+                        <i class="fa-solid fa-user-group"></i>
+                        Sponsors
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-payouts.html">
+                        <i class="fa-solid fa-handshake"></i>
+                        Payouts
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-anouncement.html">
+                        <i class="fa-solid fa-wallet"></i>
+                        Announcements
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-faqs.html">
+                        <i class="fa-solid fa-message"></i>
+                        FAQs
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-analytics.html">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        Analytics
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="sidebar-bottom">
+            <button class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+        </div>
+    </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+
+            <header class="topbar">
+
+                <div >
+                    <h1>Create Tournament</h1>
+                </div>
+
+                <div class="top-actions">
+
+                    <button>
+                        <i class="fa-regular fa-bell"></i>
+                    </button>
+
+                    <button>
+                        <i class="fa-regular fa-envelope"></i>
+                    </button>
+
+                    <div class="profile">
+                        <img src="https://i.pravatar.cc/80?img=12">
+                        <div>
+                            <h4>GameArena</h4>
+                            <span>Organizer</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+         <main class="main-wrapper">
+
+    <!-- STEPS -->
+
+    <div class="steps">
+
+        <div class="step active">1<br><span>Basic Info</span></div>
+        <div class="step">2<br><span>Structure</span></div>
+        <div class="step">3<br><span>Teams</span></div>
+        <div class="step">4<br><span>Rules</span></div>
+        <div class="step">5<br><span>Prize Pool</span></div>
+        <div class="step">6<br><span>Payment</span></div>
+         <div class="step">7<br><span>Review</span></div>
+
+    </div>
+    
+    <!-- STEP 1 -->
+
+    <section class="step-content active" id="step1">
+
+        <div class="form-grid">
+
+            <div class="card">
+
+                <h2>Basic Information</h2>
+
+                <label>Tournament Name *</label>
+                <input class="input" id="tournamentName">
+
+                <label>Tournament Description *</label>
+                <textarea class="input" rows="5" id="description"></textarea>
+                <label>Registration Start Date</label>
+                <input class="input" id="tournamentRegistrationStart" type="date">
+                <label>Registration End Date</label>
+                <input class="input" id="tournamentRegistrationEnd" type="date">
+                <label>Tournament Start Date</label>
+                <input class="input" id="tournamentTournamentStart" type="date">
+                <label>Tournament End Date</label>
+                <input class="input" id="tournamentTournamentEnd" type="date">
+
+            </div>
+
+            <div class="card">
+
+                <h2>Organizer Information</h2>
+
+                <label>Organizer Name</label>
+                <input class="input" id="organizerName">
+
+                <label>Platform</label>
+                <select class="input" id="platform">
+                    <option>Mobile</option>
+                    <option>PC</option>
+                </select>
+
+
+                <label>Email</label>
+                <input class="input" type="email" id="organizerEmail">
+
+                <label>Phone Number</label>
+                <input class="input" id="phoneNumber">
+
+                <label>Tournament Banner</label>
+                <input type="file" class="input" id="bannerImage">
+
+                <label>Tournament Logo</label>
+                <input type="file" class="input" id="logoImage">
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- STEP 2 -->
+
+   <section class="step-content" id="step2">
+
+    <div class="form-grid">
+
+        <!-- CATEGORY -->
+
+        <div class="card">
+
+            <h2>Tournament Category</h2>
+
+            <label>Category</label>
+
+            <select class="input" id="tournamentCategory">
+
+                <option value="">Select Category</option>
+
+                <option value="bracket">
+                    Bracket Tournament
+                </option>
+
+                <option value="leaderboard">
+                    Leaderboard Tournament
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- FORMAT -->
+
+        <div class="card">
+
+            <h2>Format Configuration</h2>
+
+            <label>Format</label>
+
+            <select class="input" id="tournamentFormat">
+
+                <option value="">
+                    Select Format
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <!-- BRACKET SECTION -->
+
+    <div id="bracketSection" class="card hidden">
+
+        <h2>Bracket Configuration</h2>
+
+        <label>Total Teams</label>
+
+        <select class="input" id="teamCount">
+
+            <option>8</option>
+            <option>16</option>
+            <option>32</option>
+            <option>64</option>
+            <option>128</option>
+
+        </select>
+
+        <label>Seeding Method</label>
+
+        <select class="input">
+            <option value="random">Random</option>
+            <option value="Manual">Manual</option>
+
+        </select>
+
+        <div class="info-box">
+
+            Brackets are generated automatically based on
+            Format + Team Count.
+
+        </div>
+
+        <!-- <div class="structure-preview">
+
+            <h3>Structure Preview</h3>
+
+            <div id="bracketPreview">
+
+                Select Format
+
+            </div>
+
+        </div> -->
+
+    </div>
+
+    <!-- LEADERBOARD SECTION -->
+
+    <div id="leaderboardSection" class="card hidden">
+
+        <div class="section-header">
+
+            <h2>Leaderboard Stages</h2>
+
+            <button
+                type="button"
+                class="primary-btn"
+                id="addStageBtn">
+
+                + Add Stage
+
+            </button>
+
+        </div>
+
+        <label>Total Participants</label>
+
+        <input
+            type="number"
+            id="totalParticipants"
+            class="input"
+            placeholder="100">
+
+        <div id="stagesContainer">
+
+            <div class="stage-card">
+
+                <h3>Stage 1</h3>
+
+                <label>Stage Name</label>
+
+                <input
+                    class="input stage-name"
+                    value="Qualifiers">
+
+                <label>Group Size</label>
+
+                <input
+                    type="number"
+                    class="input group-size"
+                    value="20">
+
+                <label>Qualified Teams</label>
+
+                <input
+                    type="number"
+                    class="input qualified-teams"
+                    value="40">
+
+            </div>
+
+        </div>
+
+        <div class="structure-preview">
+
+            <h3>Flow Preview</h3>
+
+            <div id="leaderboardPreview">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- STEP 3 -->
+
+    <section class="step-content" id="step3">
+
+        <div class="form-grid">
+
+            <div class="card">
+
+                <h2>Team Settings</h2>
+
+                <label>Maximum players Per Team</label>
+                <input class="input" type="number" id="maximumPlayer">
+
+                <label>Maximum Teams</label>
+                <input class="input" type="number" disabled id="maxTeams">
+
+                <label>Minimum Teams</label>
+                <input class="input" type="number" id="minTeams">
+
+                <label>Entry Fee</label>
+                <input class="input" type="number" id="entryFee">
+
+                <label>Verification Required</label>
+
+                <select class="input" id="verificationRequired">
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- STEP 4 -->
+
+    <!-- <section class="step-content" id="step4">
+
+        <div class="form-grid">
+
+            <div class="card">
+
+                <h2>Match Configuration</h2>
+
+                <label>Best Of</label>
+
+                <select class="input">
+                    <option>BO1</option>
+                    <option>BO3</option>
+                    <option>BO5</option>
+                </select>
+
+                <label>Match Duration (Minutes)</label>
+
+                <select class="input">
+                    <option>15</option>
+                    <option>30</option>
+                    <option>45</option>
+                    <option>60</option>
+                </select>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Scheduling</h2>
+
+                <label>Scheduling Type</label>
+
+                <select class="input">
+                    <option>Auto Schedule</option>
+                    <option>Manual Schedule</option>
+                </select>
+
+                <label>Check-In Buffer</label>
+
+                <input type="number" class="input">
+
+            </div>
+
+        </div>
+
+    </section> -->
+
+    <!-- STEP 5 -->
+
+    <!-- <section class="step-content" id="step4">
+
+        <div class="card">
+
+            <h2>Schedule</h2>
+
+            <label>Tournament Start Date</label>
+            <input type="date" class="input">
+
+            <label>Tournament End Date</label>
+            <input type="date" class="input">
+
+            <label>Check-In Time</label>
+            <input type="time" class="input">
+
+            <label>Match Start Time</label>
+            <input type="time" class="input">
+
+            <label>Timezone</label>
+
+            <select class="input">
+                <option>IST</option>
+                <option>UTC</option>
+            </select>
+
+        </div>
+
+    </section> -->
+
+    <!-- STEP 6 -->
+
+<section class="step-content" id="step4">
+
+    <div class="card">
+
+        <div class="section-header">
+
+            <h2>Rules & Guidelines</h2>
+
+            <button
+                type="button"
+                class="primary-btn"
+                id="addCategoryBtn">
+
+                + Add Category
+
+            </button>
+
+        </div>
+
+        <div id="rulesContainer">
+
+            <!-- Categories Added Dynamically -->
+
+        </div>
+
+    </div>
+
+</section>
+    
+    <!-- STEP 7 -->
+
+    <section class="step-content" id="step5">
+
+        <div class="form-grid">
+
+            <div class="card">
+
+                <h2>Prize Pool</h2>
+
+                <label>Total Prize Pool</label>
+                <input class="input" type="number" id="totalPrizePool">
+
+                <label>1st Prize</label>
+                <input class="input" type="number" id="firstPrize">
+
+                <label>2nd Prize</label>
+                <input class="input" type="number" id="secondPrize">
+
+                <label>3rd Prize</label>
+                <input class="input" type="number" id="thirdPrize">
+
+            </div>
+
+            <div class="card">
+
+                <h2>Additional Rewards</h2>
+
+                <label>MVP Award</label>
+                <input class="input" id="mvpAward">
+
+                <label>Certificates</label>
+                <input class="input" id="certificates">
+
+                <label>                <label>Trophy Details</label>
+                <textarea class="input" rows="4" id="trophyDetails"></textarea>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- STEP 8 -->
+
+  
+
+    <section class="step-content" id="step6">
+
+    <div class="card payment-card">
+
+        <h2>Complete Tournament Creation</h2>
+
+        <p class="payment-description">
+            Review completed successfully. Pay the tournament hosting fee to publish your tournament.
+        </p>
+
+        <div class="amount-box">
+
+            <span>Tournament Hosting Fee</span>
+
+            <h1>₹499</h1>
+
+        </div>
+
+        <div class="payment-details">
+
+            <div class="payment-item">
+                <span>Tournament Type</span>
+                <strong>Premium Tournament</strong>
+            </div>
+
+            <div class="payment-item">
+                <span>Status</span>
+                <strong class="pending-status" id="pending-status">Pending Payment</strong>
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <button
+                class="secondary-btn"
+                id="backToReviewBtn">
+
+                Back
+
+            </button>
+
+            <button
+                class="primary-btn"
+                id="payNowBtn">
+
+                Pay & Publish Tournament
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+  <section class="step-content" id="step7">
+
+        <div class="card">
+
+            <h2>Review & Publish</h2>
+
+            <p>
+                Review all entered tournament information before publishing.
+            </p>
+
+            <button id="reviewBtn" class="primary-btn">
+                Open Review Summary
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- ACTION BUTTONS -->
+
+    <div class="form-actions">
+
+        <button id="prevBtn" class="secondary-btn">
+            Previous
+        </button>
+
+        <button id="saveDraftBtn" class="secondary-btn">
+            Save Draft
+        </button>
+
+        <button id="nextBtn" class="primary-btn">
+            Next →
+        </button>
+
+    </div>
+
+</main>
+
+<!-- REVIEW MODAL -->
+
+<div class="review-modal" id="reviewModal">
+
+    <div class="review-content">
+
+        <div class="review-header">
+
+            <h2>Tournament Review</h2>
+
+            <button id="closeReview">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div id="reviewContent" class="review-body">
+        </div>
+
+        <div class="review-footer">
+
+            <button class="secondary-btn">
+                Back
+            </button>
+
+            <button id="modalSaveBtn" class="secondary-btn">
+                Save Draft
+            </button>
+
+            <button id="publishBtn" class="primary-btn">
+                Publish Tournament
+            </button>
+
+        </div>
+    </main>
+
+
+
+        </div>
+
+    </div>
+
+    <!-- REVIEW MODAL -->
+
+    <div class="review-modal" id="reviewModal">
+
+        <div class="review-content">
+
+            <div class="review-header">
+
+                <h2>Tournament Review</h2>
+
+                <button id="closeReview">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+            <div class="review-body" id="reviewContent">
+
+                <!-- Filled using JS -->
+
+            </div>
+
+            <div class="review-footer">
+
+                <button class="secondary-btn">
+                    Back
+                </button>
+
+                <button class="secondary-btn" id="modalSaveBtn">
+                    Save Draft
+                </button>
+
+                <button class="primary-btn" id="publishBtn">
+                    Publish Tournament
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<script src="../scripts/create-tournament.js"></script>
+
+</body>
+
+</html>

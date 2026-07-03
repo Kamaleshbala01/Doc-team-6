@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams & Participation</title>
+
+    <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/teams-participation.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<!-- Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div>
+                    <h2>GameArena</h2>
+                    <span>Tournament Organizer</span>
+                </div>
+            </div>
+
+            <nav>
+                <ul>
+                    <li>
+                        <a href="./index.html">
+                            <i class="fa-solid fa-chart-line"></i>
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./tournament-management.html">
+                            <i class="fa-solid fa-trophy"></i>
+                            Tournaments
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./create-tournament.html">
+                            <i class="fa-solid fa-plus"></i>
+                            Create Tournament
+                        </a>
+                    </li>
+
+                    <li class="active">
+                        <a href="#">
+                            <i class="fa-solid fa-people-group"></i>
+                            Teams
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./torunament-brackets.html">
+                            <i class="fa-solid fa-gamepad"></i>
+                            Brackets
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./tournament-sponsors.html">
+                            <i class="fa-solid fa-user-group"></i>
+                            Sponsors
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./tournament-payouts.html">
+                            <i class="fa-solid fa-handshake"></i>
+                            Payouts
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./tournament-anouncement.html">
+                            <i class="fa-solid fa-wallet"></i>
+                            Announcements
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./tournament-faqs.html">
+                            <i class="fa-solid fa-message"></i>
+                            FAQs
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./tournament-analytics.html">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            Analytics
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <div class="main-content">
+
+            <header class="topbar">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search tournaments, teams, players...">
+                </div>
+
+                <div class="top-actions">
+                    <button>
+                        <i class="fa-regular fa-bell"></i>
+                    </button>
+
+                    <button>
+                        <i class="fa-regular fa-envelope"></i>
+                    </button>
+
+                    <div class="profile">
+                        <img src="https://i.pravatar.cc/80?img=12">
+                        <div>
+                            <h4>GameArena</h4>
+                            <span>Organizer</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+
+                <div class="card-header">
+                    <div>
+                        <h1>Teams & Participation</h1>
+                        <p style="color: var(--text-muted)">
+                            Manage registered teams and participants
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <h2 id="totalTeams">0</h2>
+                        <p>Total Teams</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 id="totalParticipants">0</h2>
+                        <p>Total Participants</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 id="verifiedTeams">0</h2>
+                        <p>Verified</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 id="pendingTeams">0</h2>
+                        <p>Pending</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 id="totalTournaments">0</h2>
+                        <p>Tournaments</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 id="avgTeamSize">0</h2>
+                        <p>Avg Team Size</p>
+                    </div>
+
+                </div>
+
+                <div class="dashboard-grid">
+
+                    <!-- Left Column -->
+
+                    <div class="left-column">
+
+                        <div class="card">
+
+                            <div class="card-header">
+                                <h2>Registered Teams</h2>
+                                
+
+                                <input
+                                    id="teamSearch"
+                                    class="input"
+                                    placeholder="Search teams...">
+                            </div>
+
+                            <table class="tournament-table">
+
+                                
+                                    <thead>
+                                        <tr>
+                                            <th>Team</th>
+                                            <th>Tournament Name</th>
+                                            <th>Team size</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+
+                                <tbody id="teamTableBody">
+                                    <!-- Dynamic Content -->
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+
+                    </div>
+
+                    <!-- Right Column -->
+
+                    <div class="right-column">
+
+                    <div class="card">
+
+                        <h2>Participants Overview</h2>
+
+                            <!-- <div class="circle">
+                                <span id="participantCount">0</span>
+                            </div> -->
+
+                            <ul class="legend">
+
+                                <li>
+                                    <span class="dot green"></span>
+                                    Verified palyers:
+                                    <span id="verifiedParticipantCount">0</span>
+                                </li>
+
+                                <li>
+                                    <span class="dot orange"></span>
+                                    Pending players:
+                                    <span id="pendingParticipantCount">0</span>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="card">
+
+                            <h2>Recent Teams</h2>
+
+                            <div id="recentTeams">
+                                <!-- Dynamic Teams -->
+                            </div>
+
+                        </div>
+
+                        <!-- <div class="card">
+
+                            <h2>Quick Actions</h2>
+
+                            <button class="secondary-btn">
+                                Invite Team
+                            </button>
+
+                            <button class="secondary-btn">
+                                Verify Participants
+                            </button>
+
+                            <button class="secondary-btn">
+                                Export List
+                            </button>
+
+                        </div> -->
+
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+    <div id="teamModal" class="modal-overlay">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <h2>Team Details</h2>
+
+            <button id="closeModal" class="close-modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div class="modal-content">
+
+            <div class="team-info">
+
+                <div>
+                    <label>Team</label>
+                    <p id="popupTeamName"></p>
+                </div>
+
+                <div>
+                    <label>Tournament</label>
+                    <p id="popupTournament"></p>
+                </div>
+
+                <div>
+                    <label>Status</label>
+                    <p id="popupStatus"></p>
+                </div>
+
+                <div>
+                    <label>Players</label>
+                    <p id="popupPlayers"></p>
+                </div>
+
+            </div>
+
+            <h3>Players List</h3>
+
+            <table class="member-table">
+
+                <thead>
+                    <tr>
+                        <th>Member Id</th>
+                        <th>Player Name</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+
+                <tbody id="popupMemberTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="modal-footer">
+
+
+            <button
+                class="primary-btn"
+                id="approveBtn"
+            >
+                Approve
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- Data -->
+    <script src="../scripts/teams-participation.js"></script>   
+
+</body>

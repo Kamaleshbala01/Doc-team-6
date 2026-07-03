@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Payouts</title>
+
+<link rel="stylesheet" href="../styles/tournament-payouts.css">
+<link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<!-- Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="layout">
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                
+            </div>
+            <div>
+                <h2>GameArena</h2>
+                <span>Tournament Organizer</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="./index.html">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                </li>
+                 <li>
+                    <a href="./tournament-management.html">
+                        <i class="fa-solid fa-trophy"></i>
+                        Tournaments
+                    </a>
+                </li>
+                <li>
+                    <a href="./create-tournament.html">
+                        <i class="fa-solid fa-plus"></i>
+                        Create Tournament
+                    </a>
+                </li>
+                <li>
+                    <a href="./teams-participation.html">
+                        <i class="fa-solid fa-people-group"></i>
+                        Teams
+                    </a>
+                </li>
+                <li>
+                    <a href="./torunament-brackets.html">
+                        <i class="fa-solid fa-gamepad"></i>
+                        Brackets
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-sponsors.html">
+                        <i class="fa-solid fa-user-group"></i>
+                        Sponsors
+                    </a>
+                </li>
+                <li  class="active">
+                    <a href="#">
+                        <i class="fa-solid fa-handshake"></i>
+                        Payouts
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-anouncement.html">
+                        <i class="fa-solid fa-wallet"></i>
+                        Announcements
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-faqs.html">
+                        <i class="fa-solid fa-message"></i>
+                        FAQs
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-analytics.html">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        Analytics
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="sidebar-bottom">
+            <button class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+        </div>
+    </aside>
+
+    
+
+    
+    <div class="main-content">
+        <header class="topbar">
+            <div>
+                <h2>Payouts Dashboard</h2>
+            </div>
+            <div class="top-actions">
+                <button>
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+                <button>
+                    <i class="fa-regular fa-envelope"></i>
+                </button>
+                <div class="profile">
+                    <img src="https://i.pravatar.cc/80?img=12">
+                    <div>
+                        <h4>GameArena</h4>
+                        <span>Organizer</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        
+        <main class="main-wrapper">
+
+
+            
+            <div id="tournamentList" class="card">
+
+                <h2>All Tournaments</h2>
+
+                <table class="tournament-table">
+                    <thead>
+                        <tr>
+                            <th>Tournament</th>
+                            <th>Prize Pool</th>
+                            <th>Participants</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>BGMI Masters Cup</td>
+                            <td>₹75,000</td>
+                            <td>64</td>
+                            <td><span class="badge live">Completed</span></td>
+                            <td>
+                                <button onclick="showDetails()" class="table-btn">View</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Valorant League</td>
+                            <td>₹50,000</td>
+                            <td>32</td>
+                            <td><span class="badge upcoming">Pending</span></td>
+                            <td>
+                                <button onclick="showDetails()" class="table-btn">View</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            
+            <div id="detailsView">
+
+                <button onclick="goBack()" class="secondary-btn back-btn">
+                    ← Back
+                </button>
+
+                
+                <div class="card">
+                    <h2>Winners & Prize Distribution</h2>
+
+                    <table class="tournament-table">
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Team</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>1st</td>
+                                <td>Team Alpha</td>
+                                <td>₹40,000</td>
+                                <td><span class="badge live">Paid</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>2nd</td>
+                                <td>Night Wolves</td>
+                                <td>₹25,000</td>
+                                <td><span class="badge upcoming">Pending</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>3rd</td>
+                                <td>Gods of War</td>
+                                <td>₹10,000</td>
+                                <td><span class="badge completed">Paid</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                
+                <div class="card">
+                    <h2>Transaction History</h2>
+
+                    <table class="tournament-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Team</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>#TX12345</td>
+                                <td>Team Alpha</td>
+                                <td>₹40,000</td>
+                                <td>20 May</td>
+                                <td><span class="badge live">Success</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>#TX12346</td>
+                                <td>Night Wolves</td>
+                                <td>₹25,000</td>
+                                <td>21 May</td>
+                                <td><span class="badge upcoming">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script>
+function showDetails() {
+    document.getElementById("tournamentList").style.display = "none";
+    document.getElementById("detailsView").style.display = "block";
+}
+
+function goBack() {
+    document.getElementById("tournamentList").style.display = "block";
+    document.getElementById("detailsView").style.display = "none";
+}
+</script>
+
+</body>
+</html>

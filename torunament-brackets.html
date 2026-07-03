@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Tournament Brackets</title>
+
+    <link
+        rel="stylesheet"
+        href="../styles/dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/tournament-brackets.css"
+    >
+
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        rel="stylesheet"
+    >
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<!-- Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+      <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                
+            </div>
+            <div>
+                <h2>GameArena</h2>
+                <span>Tournament Organizer</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="./index.html">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                </li>
+                 <li>
+                    <a href="./tournament-management.html">
+                        <i class="fa-solid fa-trophy"></i>
+                        Tournaments
+                    </a>
+                </li>
+                <li>
+                    <a href="./create-tournament.html">
+                        <i class="fa-solid fa-plus"></i>
+                        Create Tournament
+                    </a>
+                </li>
+                <li>
+                    <a href="./teams-participation.html">
+                        <i class="fa-solid fa-people-group"></i>
+                        Teams
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <i class="fa-solid fa-gamepad"></i>
+                        Brackets
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-sponsors.html">
+                        <i class="fa-solid fa-user-group"></i>
+                        Sponsors
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-payouts.html">
+                        <i class="fa-solid fa-handshake"></i>
+                        Payouts
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-anouncement.html">
+                        <i class="fa-solid fa-wallet"></i>
+                        Announcements
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-faqs.html">
+                        <i class="fa-solid fa-message"></i>
+                        FAQs
+                    </a>
+                </li>
+                <li>
+                    <a href="./tournament-analytics.html">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        Analytics
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="sidebar-bottom">
+            <button class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+
+    <div class="main-wrapper">
+
+        <div class="topbar">
+
+            <h2>
+                Tournament Brackets
+            </h2>
+
+        </div>
+
+        <main class="main-content">
+
+            <!-- TOURNAMENT LIST -->
+
+            <div
+                id="tournamentSelection"
+                class="card"
+            >
+
+                <h2>
+                    Select Tournament
+                </h2>
+
+                <div
+                    class="tournament-grid"
+                    id="tournamentGrid"
+                >
+
+                    <!-- JS -->
+
+                </div>
+
+            </div>
+
+            <!-- BRACKET WORKSPACE -->
+
+            <div
+                id="bracketWorkspace"
+                style="display:none;"
+            >
+
+                <button
+                    onclick="goBack()"
+                    class="secondary-btn"
+                >
+                    ← Back
+                </button>
+
+                <div class="workspace-header">
+
+                    <h2
+                        id="selectedTournament"
+                    >
+                    </h2>
+
+                    <div class="view-switch">
+
+                        <button
+                            id="bracketBtn"
+                            class="active"
+                        >
+                            Bracket
+                        </button>
+
+                        <button
+                            id="leaderboardBtn"
+                        >
+                            Leaderboard
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="workspace-layout">
+
+                    <!-- TEAM POOL -->
+
+                    <div class="team-panel card">
+
+                        <div class="panel-header">
+
+                            <h3>
+                                Team Pool
+                            </h3>
+
+                        </div>
+
+                        <input
+                            type="text"
+                            id="teamSearch"
+                            placeholder="Search Team..."
+                            class="search-input"
+                        >
+
+                        <div
+                            id="teamList"
+                            class="team-list"
+                        >
+
+                            <!-- JS -->
+
+                        </div>
+
+                    </div>
+
+                    <!-- CENTER -->
+
+                    <div
+                        id="contentArea"
+                        class="content-area card"
+                    >
+
+                        <div
+                            id="bracketView"
+                            class="bracket-view"
+                        >
+
+                            <!-- JS -->
+
+                        </div>
+
+                        <div
+                            id="leaderboardView"
+                            style="display:none;"
+                        >
+
+                            <table
+                                class="tournament-table"
+                            >
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Rank
+                                        </th>
+
+                                        <th>
+                                            Team
+                                        </th>
+
+                                        <th>
+                                            Points
+                                        </th>
+
+                                        <th>
+                                            Status
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody
+                                    id="leaderboardBody"
+                                >
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                    <!-- AUDIT -->
+
+                    <div class="audit-panel card">
+
+                        <div class="panel-header">
+
+                            <h3>
+                                Audit Trail
+                            </h3>
+
+                        </div>
+
+                        <div
+                            id="auditLog"
+                            class="audit-list"
+                        >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="../scripts/tournament-brackets.js"></script>
+
+</body>
+</html>

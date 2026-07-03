@@ -1,0 +1,586 @@
+/* 
+#bracketView {
+    display: none;
+}
+
+
+.tournament-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+
+.tournament-card {
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.tournament-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+}
+
+
+.back-btn {
+    margin-bottom: 15px;
+}
+
+
+.bracket-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+
+.round {
+    flex: 1;
+}
+
+.round h3 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+
+.match {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    color: white;
+    text-align: center;
+}
+
+
+.final {
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 10px rgba(124,58,237,.3);
+}
+
+
+@media(max-width:768px) {
+    .tournament-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bracket-container {
+        flex-direction: column;
+    }
+} */
+
+
+/* ===================================
+   Tournament Selection
+=================================== */
+
+.tournament-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(280px,1fr)
+        );
+
+    gap:20px;
+
+    margin-top:20px;
+}
+
+.tournament-card{
+
+    padding:20px;
+
+    border-radius:16px;
+
+    border:1px solid var(--border);
+
+    background:var(--surface);
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.tournament-card:hover{
+
+    border-color:var(--primary);
+
+    transform:translateY(-4px);
+}
+
+.tournament-card h3{
+
+    margin-bottom:10px;
+}
+
+.tournament-card p{
+
+    color:var(--text-muted);
+
+    margin-bottom:15px;
+}
+
+/* ===================================
+   Workspace
+=================================== */
+
+.workspace-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin:20px 0;
+}
+
+.workspace-layout{
+
+    display:grid;
+
+    grid-template-columns:
+        280px
+        1fr
+        280px;
+
+    gap:20px;
+}
+
+/* ===================================
+   Team Panel
+=================================== */
+
+.team-panel{
+
+    display:flex;
+
+    flex-direction:column;
+
+    height:80vh;
+
+    position:sticky;
+
+    top:100px;
+}
+
+.search-input{
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:1px solid var(--border);
+
+    background:var(--bg-secondary);
+
+    color:white;
+
+    margin-top:15px;
+}
+
+.team-list{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    margin-top:15px;
+}
+
+.team-list::-webkit-scrollbar{
+    width:6px;
+}
+
+.team-list::-webkit-scrollbar-thumb{
+
+    background:#444;
+}
+
+/* ===================================
+   Team Cards
+=================================== */
+
+.team-card{
+
+    background:var(--bg-secondary);
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    padding:12px;
+
+    margin-bottom:10px;
+
+    cursor:grab;
+
+    transition:.2s;
+}
+
+.team-card:hover{
+
+    border-color:var(--primary);
+}
+
+.team-card.dragging{
+
+    opacity:.4;
+}
+
+/* ===================================
+   Main Content
+=================================== */
+
+.content-area{
+
+    overflow:auto;
+
+    height:80vh;
+
+    padding:20px;
+}
+
+.content-area::-webkit-scrollbar{
+
+    width:8px;
+
+    height:8px;
+}
+
+.content-area::-webkit-scrollbar-thumb{
+
+    background:#555;
+
+    border-radius:20px;
+}
+
+/* ===================================
+   Bracket View
+=================================== */
+
+.bracket-view{
+
+    min-width:1400px;
+
+    min-height:900px;
+
+    display:flex;
+
+    gap:120px;
+
+    align-items:flex-start;
+}
+
+/* ===================================
+   Rounds
+=================================== */
+
+.bracket-round{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:120px;
+}
+
+.round-title{
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+    color:var(--text-muted);
+}
+
+/* ===================================
+   Match Card
+=================================== */
+
+.match{
+
+    position:relative;
+}
+
+.match-card{
+
+    width:220px;
+
+    background:#2b2b2b;
+
+    border-radius:8px;
+
+    overflow:hidden;
+
+    border:1px solid #4a4a4a;
+}
+
+/* ===================================
+   Teams In Match
+=================================== */
+
+.team-slot{
+
+    min-height:42px;
+
+    padding:10px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    display:flex;
+
+    align-items:center;
+
+    background:rgba(255,255,255,.02);
+}
+
+.team-slot:last-child{
+
+    border-bottom:none;
+}
+
+.team-slot.drag-over{
+
+    border:2px dashed var(--primary);
+}
+
+.seed{
+
+    width:30px;
+
+    opacity:.7;
+
+    font-size:12px;
+}
+
+/* ===================================
+   Bracket Lines
+=================================== */
+
+.match::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+
+    right:-60px;
+
+    width:60px;
+
+    height:2px;
+
+    background:#a0a0a0;
+}
+
+/* ===================================
+   Leaderboard
+=================================== */
+
+#leaderboardView{
+
+    overflow-y:auto;
+}
+
+#leaderboardView table{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+#leaderboardView th,
+#leaderboardView td{
+
+    padding:14px;
+
+    border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+
+.leaderboard-row{
+
+    cursor:move;
+}
+
+.leaderboard-row:hover{
+
+    background:
+    rgba(255,255,255,.03);
+}
+
+/* ===================================
+   Status Badges
+=================================== */
+
+.status-qualified{
+
+    color:#22C55E;
+
+    font-weight:600;
+}
+
+.status-eliminated{
+
+    color:#EF4444;
+
+    font-weight:600;
+}
+
+/* ===================================
+   Audit Panel
+=================================== */
+
+.audit-panel{
+
+    height:80vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    position:sticky;
+
+    top:100px;
+}
+
+.audit-list{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    margin-top:15px;
+}
+
+.audit-item{
+
+    padding:12px;
+
+    border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+
+.audit-item p{
+
+    margin-bottom:6px;
+
+    font-size:14px;
+}
+
+.audit-item span{
+
+    font-size:12px;
+
+    color:var(--text-muted);
+}
+
+/* ===================================
+   View Switch
+=================================== */
+
+.view-switch{
+
+    display:flex;
+
+    gap:10px;
+}
+
+.view-switch button{
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:var(--bg-secondary);
+
+    color:white;
+}
+
+.view-switch button.active{
+
+    background:var(--primary);
+}
+
+/* ===================================
+   Panel Header
+=================================== */
+
+.panel-header{
+
+    border-bottom:
+    1px solid var(--border);
+
+    padding-bottom:12px;
+}
+
+/* ===================================
+   Drag Over
+=================================== */
+
+.drop-target{
+
+    border:2px dashed var(--primary);
+}
+
+/* ===================================
+   Responsive
+=================================== */
+
+@media(max-width:1200px){
+
+    .workspace-layout{
+
+        grid-template-columns:
+        1fr;
+    }
+
+    .team-panel,
+    .audit-panel{
+
+        position:static;
+
+        height:400px;
+    }
+
+    .content-area{
+
+        height:600px;
+    }
+}
+
+@media(max-width:768px){
+
+    .workspace-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+    }
+
+    .bracket-view{
+
+        min-width:1200px;
+    }
+}
