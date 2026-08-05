@@ -1,0 +1,727 @@
+// =====================================================================
+// Invictus eSports Platform — Database Schema (DBML)
+// =====================================================================
+// Generated from the JPA @Entity classes across all 11 microservices.
+// Each microservice owns its own database — modelled here as a DBML
+// "schema" per service so the diagram stays grouped and readable.
+//
+// Two kinds of relationships appear in this file:
+//   1. Real foreign keys — `Ref:` lines for @ManyToOne / @OneToOne /
+//      @ManyToMany associations between entities that live in the SAME
+//      service (i.e. an actual FK constraint exists in that service's DB).
+//   2. Logical references — plain string columns (e.g. `user_id`,
+//      `tournament_id`) that point at another SERVICE's primary key.
+//      These are NOT real foreign keys (separate databases, standard
+//      microservice practice) and are documented with a `note:` on the
+//      column instead of a `Ref:` line.
+//
+// Paste this into https://dbdiagram.io to render the ER diagram.
+// =====================================================================
+
+Project invictus_esports_platform {
+  database_type: 'PostgreSQL (per-service databases)'
+  Note: '''
+    11 independently-deployed microservices, each with its own schema/database.
+    Primary keys are UUID strings (Hibernate GenerationType.UUID) unless noted.
+    Cross-service "foreign keys" are logical only — enforced in application code,
+    not by DB constraints — since each service owns its own data store.
+  '''
+}
+
+// =====================================================================
+// 1. USER SERVICE — identity, roles/permissions, role-specific profiles
+// =====================================================================
+
+Table user_service.users {
+  id              varchar   [pk, note: 'UUID']
+  username        varchar
+  password        varchar   [note: 'bcrypt hash']
+  email           varchar
+  email_verified  boolean
+  mobile_number   varchar
+  mobile_verifed  boolean
+  status          varchar
+  created_at      timestamp
+  updated_at      timestamp
+
+  indexes {
+    email    [name: 'idx_user_email']
+    username [name: 'idx_user_username']
+  }
+}
+
+Table user_service.roles {
+  id         varchar   [pk, note: 'UUID']
+  role_name  varchar
+  created_at timestamp
+
+  indexes {
+    role_name [name: 'idx_role_role_name']
+  }
+}
+
+Table user_service.permissions {
+  id              varchar [pk, note: 'UUID']
+  permission_name varchar
+}
+
+// Implicit @ManyToMany join tables (Hibernate-generated)
+Table user_service.user_roles {
+  user_id varchar [ref: > user_service.users.id]
+  role_id varchar [ref: > user_service.roles.id]
+
+  indexes {
+    (user_id, role_id) [pk]
+  }
+}
+
+Table user_service.role_permissions {
+  role_id       varchar [ref: > user_service.roles.id]
+  permission_id varchar [ref: > user_service.permissions.id]
+
+  indexes {
+    (role_id, permission_id) [pk]
+  }
+}
+
+Table user_service.user_profiles {
+  id                 varchar  [pk, note: 'UUID']
+  first_name         varchar
+  last_name          varchar
+  profile_image_uri  varchar
+  bio                text
+  is_influencer      boolean
+  influencer_status  varchar
+  status             user_service_status
+  user_id            varchar  [ref: - user_service.users.id, note: '1:1 owner']
+
+  indexes {
+    user_id [name: 'idx_userprofile_user_id']
+  }
+}
+
+Table user_service.brand_details {
+  id                       varchar   [pk, note: 'UUID']
+  brand_name               varchar
+  mobile_number            varchar
+  website_url              varchar
+  legal_entity_identifier  varchar
+  business_address         varchar
+  verification_status      varchar
+  created_at               timestamp
+  updated_at               timestamp
+  user_id                  varchar   [ref: - user_service.users.id, note: '1:1 owner']
+
+  indexes {
+    user_id [name: 'idx_branddetails_user_id']
+  }
+}
+
+Table user_service.organizer_details {
+  id                       varchar   [pk, note: 'UUID']
+  government_id_uri        varchar
+  selfie_verification_uri  varchar
+  verification_status      varchar
+  verified_at              timestamp
+  created_at               timestamp
+  updated_at               timestamp
+  user_id                  varchar   [ref: - user_service.users.id, note: '1:1 owner']
+
+  indexes {
+    user_id [name: 'idx_organizerdetails_user_id']
+  }
+}
+
+Enum user_service_status {
+  SUSPENDED
+  ACTIVE
+  DELETED
+  PENDING
+}
+
+// =====================================================================
+// 2. TEAM SERVICE — teams, rosters, invitations
+// =====================================================================
+
+Table team_service.teams {
+  id            varchar   [pk, note: 'UUID']
+  team_name     varchar   [unique, not null]
+  game_title    varchar   [not null]
+  region        varchar   [not null]
+  leader_id     varchar   [note: 'logical FK -> user_service.users.id']
+  leader_name   varchar
+  founded_date  timestamp
+  created_at    timestamp
+  updated_at    timestamp
+
+  indexes {
+    leader_id [name: 'idx_team_leader_id']
+    region    [name: 'idx_team_region']
+  }
+}
+
+Table team_service.team_members {
+  id          varchar        [pk, note: 'UUID']
+  user_id     varchar        [note: 'logical FK -> user_service.users.id']
+  username    varchar
+  position    team_position
+  joined_at   timestamp
+  created_at  timestamp
+  updated_at  timestamp
+  team_id     varchar        [ref: > team_service.teams.id]
+
+  indexes {
+    team_id [name: 'idx_teammember_team_id']
+    user_id [name: 'idx_teammember_user_id']
+  }
+}
+
+Table team_service.team_invitations {
+  id            varchar            [pk, note: 'UUID']
+  team_id       varchar            [note: 'logical FK -> team_service.teams.id (denormalized, not a DB FK)']
+  team_name     varchar
+  sender_id     varchar            [note: 'logical FK -> user_service.users.id']
+  sender_name   varchar
+  receiver_id   varchar            [note: 'logical FK -> user_service.users.id']
+  receiver_name varchar
+  status        invitation_status
+  sent_at       timestamp
+  responded_at  timestamp
+
+  indexes {
+    team_id     [name: 'idx_teaminv_team_id']
+    receiver_id [name: 'idx_teaminv_receiver_id']
+  }
+}
+
+Enum team_position {
+  LEADER
+  MEMBER
+}
+
+Enum invitation_status {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+// =====================================================================
+// 3. TOURNAMENT SERVICE — tournament setup, rules, registration
+// =====================================================================
+
+Table tournament_service.tournaments {
+  id                       varchar               [pk, note: 'UUID']
+  name                     varchar
+  description              text
+  registration_start_date  timestamp
+  registration_end_date    timestamp
+  tournament_start_date    timestamp
+  tournament_end_date      timestamp
+  is_locked                boolean
+  tournament_category      tournament_category
+  tournament_type          tournament_type
+  maximum_teams            int
+  maximum_players_per_team int
+  seeding_type_id          seed_type
+  entry_fee                decimal
+  verification_required    tournament_verification
+  status                   tournament_status
+  created_at               timestamp
+  updated_at               timestamp
+  user_id                  varchar               [note: 'logical FK -> user_service.users.id (organizer)']
+  file_id                  varchar               [note: 'logical FK -> socialmedia_service.files.id']
+  is_deleted               boolean
+
+  indexes {
+    status  [name: 'idx_tournament_status']
+    user_id [name: 'idx_tournament_user_id']
+  }
+}
+
+Table tournament_service.tournament_rules {
+  id            varchar         [pk, note: 'UUID']
+  category      rules_category
+  rule_text     text
+  created_at    timestamp
+  updated_at    timestamp
+  tournament_id varchar         [ref: > tournament_service.tournaments.id]
+
+  indexes {
+    tournament_id [name: 'idx_tournrules_tournament_id']
+    category      [name: 'idx_tournrules_category']
+  }
+}
+
+Table tournament_service.tournament_registration {
+  id                  varchar           [pk, note: 'UUID']
+  registration_status tournament_status
+  registration_date   timestamp
+  created_at          timestamp
+  updated_at          timestamp
+  team_id             varchar           [note: 'logical FK -> team_service.teams.id']
+  tournament_id       varchar           [ref: > tournament_service.tournaments.id]
+
+  indexes {
+    tournament_id [name: 'idx_tournreg_tournament_id']
+    team_id       [name: 'idx_tournreg_team_id']
+  }
+}
+
+Table tournament_service.tournament_announcement {
+  id            varchar   [pk, note: 'UUID']
+  title         varchar
+  content       text
+  created_at    timestamp
+  updated_at    timestamp
+  tournament_id varchar   [ref: > tournament_service.tournaments.id]
+
+  indexes {
+    tournament_id [name: 'idx_tournann_tournament_id']
+  }
+}
+
+Table tournament_service.tournament_faqs {
+  id            varchar          [pk, note: 'UUID']
+  question      text
+  answer        text
+  status        tournament_status
+  created_at    timestamp
+  updated_at    timestamp
+  user_id       varchar          [note: 'logical FK -> user_service.users.id']
+  tournament_id varchar          [ref: > tournament_service.tournaments.id]
+
+  indexes {
+    tournament_id [name: 'idx_tournfaq_tournament_id']
+    user_id       [name: 'idx_tournfaq_user_id']
+  }
+}
+
+Table tournament_service.tournament_price {
+  id                 varchar        [pk, note: 'UUID']
+  prize_category     price_category
+  rank_order         int
+  prize_amount       decimal
+  prize_description  varchar
+  created_at         timestamp
+  updated_at         timestamp
+  tournament_id      varchar        [ref: > tournament_service.tournaments.id]
+
+  indexes {
+    tournament_id [name: 'idx_tournprice_tournament_id']
+  }
+}
+
+Enum tournament_category {
+  BRACKETS
+  LEADERBOARD
+}
+
+Enum tournament_type {
+  SINGLE_ELIMINATION
+  DOUBLE_ELIMINATION
+  ROUND_ROBIN
+  POINT
+  RANK
+}
+
+Enum seed_type {
+  RANDOM
+  MANUAL
+}
+
+Enum tournament_verification {
+  YES
+  NO
+}
+
+Enum tournament_status {
+  ONGOING
+  UPCOMMING
+  CANCELLED
+  POSTPONDED
+  REGISTERED
+}
+
+Enum rules_category {
+  MATCH_RULE
+  TEAM_RULE
+  PLAYER_RULE
+  SCORING_RULE
+  ELIGIBILITY_RULE
+  DISCIPLINARY_RULE
+  TOURNAMENT_RULE
+  GENERAL
+}
+
+Enum price_category {
+  FIRST_PRICE
+  SECOND_PRICE
+  THIRD_PRICE
+  MVP
+}
+
+// =====================================================================
+// 4. TOURNAMENT ROUND SERVICE — rounds, matches, match participants
+// =====================================================================
+
+Table tournament_round_service.round_details {
+  id                     varchar   [pk, note: 'UUID']
+  round_name             varchar
+  maximum_participants   int
+  qualifying_count       int
+  tournament_id          varchar   [note: 'logical FK -> tournament_service.tournaments.id']
+  created_at             timestamp
+
+  indexes {
+    tournament_id [name: 'idx_rounddetails_tournament_id']
+  }
+}
+
+Table tournament_round_service.match_details {
+  id          varchar      [pk, note: 'UUID']
+  start_time  timestamp
+  end_time    timestamp
+  status      match_status
+  round_id    varchar      [ref: > tournament_round_service.round_details.id]
+
+  indexes {
+    round_id [name: 'idx_matchdetails_round_id']
+  }
+}
+
+Table tournament_round_service.match_participants {
+  id               varchar      [pk, note: 'UUID']
+  status           match_status
+  team_id          varchar      [note: 'logical FK -> team_service.teams.id']
+  match_details_id varchar      [ref: > tournament_round_service.match_details.id]
+
+  indexes {
+    match_details_id [name: 'idx_matchpart_match_details_id']
+    team_id           [name: 'idx_matchpart_team_id']
+  }
+}
+
+Enum match_status {
+  ONGOING
+  UPCOMMING
+  CANCELLED
+  POSTPONDED
+  ACTIVE
+}
+
+// =====================================================================
+// 5. SOCIALMEDIA & FILES SERVICE — creator accounts, files, watch history
+// =====================================================================
+
+Table socialmedia_service.social_media_account {
+  id                        varchar   [pk, note: 'UUID']
+  platform                  varchar
+  account_name              varchar
+  profile_url               varchar
+  followers_count           bigint
+  subscriber_count          bigint
+  view_subscription_ratio   decimal
+  view_comment_ratio        decimal
+  status                    varchar
+  user_id                   varchar   [note: 'logical FK -> user_service.users.id']
+  total_views               bigint
+  total_likes               bigint
+  total_comments            bigint
+  engagement_rate           decimal
+  genuine_influencer_score  decimal
+  influencer_rating         varchar
+  created_at                timestamp
+  updated_at                timestamp
+
+  indexes {
+    user_id  [name: 'idx_smaccount_user_id']
+    platform [name: 'idx_smaccount_platform']
+  }
+}
+
+Table socialmedia_service.files {
+  id            varchar   [pk, note: 'UUID']
+  file_name     varchar
+  file_type     varchar
+  bucket_name   varchar
+  storage_path  varchar
+  file_size     bigint
+  user_id       varchar   [note: 'logical FK -> user_service.users.id']
+  created_at    timestamp
+
+  indexes {
+    user_id [name: 'idx_files_user_id']
+  }
+}
+
+Table socialmedia_service.watch_histories {
+  id          varchar   [pk, note: 'UUID']
+  user_id     varchar   [note: 'logical FK -> user_service.users.id']
+  match_id    varchar   [note: 'logical FK -> tournament_round_service.match_details.id']
+  created_at  timestamp
+
+  indexes {
+    user_id  [name: 'idx_watchhist_user_id']
+    match_id [name: 'idx_watchhist_match_id']
+  }
+}
+
+// =====================================================================
+// 6. CHAT SERVICE — conversations, messages, read receipts
+// =====================================================================
+
+Table chat_service.conversations {
+  id                varchar   [pk, note: 'UUID']
+  conversation_type varchar
+  name              varchar
+  description       text
+  created_at        timestamp
+  updated_at        timestamp
+  created_by        varchar   [note: 'logical FK -> user_service.users.id']
+
+  indexes {
+    created_by [name: 'idx_conversation_created_by']
+  }
+}
+
+Table chat_service.conversation_participants {
+  id              varchar   [pk, note: 'UUID']
+  is_admin        boolean
+  is_muted        boolean
+  joined_at       timestamp
+  left_at         timestamp
+  created_at      timestamp
+  conversation_id varchar   [ref: > chat_service.conversations.id]
+  participant     varchar   [note: 'logical FK -> user_service.users.id']
+
+  indexes {
+    conversation_id [name: 'idx_convpart_conversation_id']
+    participant     [name: 'idx_convpart_participant']
+  }
+}
+
+Table chat_service.messages {
+  id              varchar   [pk, note: 'UUID']
+  content         text
+  is_edited       boolean
+  edited_at       timestamp
+  is_deleted      boolean
+  deleted_at      timestamp
+  created_at      timestamp
+  conversation_id varchar   [ref: > chat_service.conversations.id]
+  sender          varchar   [note: 'logical FK -> user_service.users.id']
+
+  indexes {
+    conversation_id [name: 'idx_message_conversation_id']
+    sender          [name: 'idx_message_sender']
+  }
+}
+
+Table chat_service.message_read_status {
+  id         varchar   [pk, note: 'UUID']
+  read_at    timestamp
+  message_id varchar   [ref: > chat_service.messages.id]
+  read_by    varchar   [note: 'logical FK -> user_service.users.id']
+
+  indexes {
+    message_id [name: 'idx_msgread_message_id']
+    read_by    [name: 'idx_msgread_read_by']
+  }
+}
+
+// =====================================================================
+// 7. NOTIFICATION SERVICE
+// =====================================================================
+
+Table notification_service.notifications {
+  id         varchar   [pk, note: 'UUID']
+  title      varchar
+  message    text
+  is_read    boolean
+  created_at timestamp
+  user_id    varchar   [note: 'logical FK -> user_service.users.id']
+
+  indexes {
+    user_id    [name: 'idx_notification_user_id']
+    created_at [name: 'idx_notification_created_at']
+  }
+}
+
+// =====================================================================
+// 8. PAYMENT & SUBSCRIPTION SERVICE
+// =====================================================================
+
+Table payment_service.subscription_plans {
+  id             varchar           [pk, note: 'UUID']
+  name           varchar
+  user_type      subscription_type
+  price          decimal
+  duration_days  int
+  created_at     timestamp
+  updated_at     timestamp
+
+  indexes {
+    user_type [name: 'idx_subplan_user_type']
+  }
+}
+
+Table payment_service.user_subscriptions {
+  id                   varchar             [pk, note: 'UUID']
+  start_date           timestamp
+  end_date             timestamp
+  amount_paid          decimal
+  status               subscription_status
+  user_id              varchar             [not null, note: 'logical FK -> user_service.users.id']
+  created_at           timestamp
+  updated_at           timestamp
+  subscription_plan_id varchar             [ref: > payment_service.subscription_plans.id]
+
+  indexes {
+    user_id              [name: 'idx_usersub_user_id']
+    subscription_plan_id [name: 'idx_usersub_plan_id']
+  }
+}
+
+Table payment_service.tournament_registration_payments {
+  id                          varchar                  [pk, note: 'UUID']
+  amount                      decimal
+  payment_method              payment_method
+  user_id                     varchar                  [not null, note: 'logical FK -> user_service.users.id']
+  tournament_registration_id  varchar                  [not null, note: 'logical FK -> tournament_service.tournament_registration.id']
+  payment_status              tournament_payment_status
+  paid_date                   timestamp
+  created_at                  timestamp
+
+  indexes {
+    user_id                    [name: 'idx_trpayment_user_id']
+    tournament_registration_id [name: 'idx_trpayment_tourn_reg_id']
+  }
+}
+
+Enum subscription_type {
+  INFLUENCER
+  ORGANIZER
+  BRAND
+}
+
+Enum subscription_status {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+}
+
+Enum payment_method {
+  GPAY
+  ONLINE_PAYMENT
+  PAYTM
+}
+
+Enum tournament_payment_status {
+  PENDING
+  SUCCESS
+  FAILED
+  PENDING_CANCELLATION
+  CANCELLED
+  CANCELLATION_REJECTED
+}
+
+// =====================================================================
+// 9. CAMPAIGN SERVICE — brand campaigns & influencer collaboration
+// =====================================================================
+
+Table campaign_service.campaigns {
+  id                   varchar        [pk, note: 'UUID']
+  campaign_type        campaign_type
+  campaign_name        varchar
+  start_date           timestamp
+  end_date             timestamp
+  description          text
+  total_budget          decimal
+  influencer_cost      decimal
+  additional_expenses  decimal
+  status               campaign_status
+  created_at           timestamp
+  updated_at           timestamp
+  brand_id             varchar        [note: 'logical FK -> user_service.users.id (brand)']
+  file_id              varchar        [note: 'logical FK -> socialmedia_service.files.id']
+  affiliate_link_id    varchar
+
+  indexes {
+    brand_id [name: 'idx_campaign_brand_id']
+    status   [name: 'idx_campaign_status']
+  }
+}
+
+Table campaign_service.collaboration_requests {
+  id                varchar         [pk, note: 'UUID']
+  title             varchar
+  description       text
+  proposed_amount   decimal
+  status            campaign_status
+  created_at        timestamp
+  updated_at        timestamp
+  campaign_id       varchar         [ref: > campaign_service.campaigns.id]
+  sender_id         varchar         [note: 'logical FK -> user_service.users.id']
+  user_id           varchar         [note: 'logical FK -> user_service.users.id (influencer)']
+
+  indexes {
+    campaign_id [name: 'idx_collabreq_campaign_id']
+    status      [name: 'idx_collabreq_status']
+  }
+}
+
+Enum campaign_type {
+  BRAND_AWARENESS
+  PRODUCT_PROMOTION
+  APP_INSTALL
+  TOURNAMENT_PROMOTION
+  EVENT_PROMOTION
+  GIVEAWAY
+}
+
+Enum campaign_status {
+  ACTIVE
+  INACTIVE
+  PENDING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+// =====================================================================
+// 10. BROKER APPLICATION — internal pub/sub event log (not domain data)
+// =====================================================================
+
+Table broker_service.events {
+  id         bigint    [pk, increment]
+  topic      varchar
+  publisher  varchar
+  payload    text
+  created_at timestamp
+
+  indexes {
+    topic      [name: 'idx_event_topic']
+    created_at [name: 'idx_event_created_at']
+  }
+}
+
+Table broker_service.registered_services {
+  service_name    varchar   [pk, note: 'Eureka-style service id, e.g. "chat-service"']
+  online          boolean
+  last_heartbeat  timestamp
+}
+
+Table broker_service.consumer_offsets {
+  service_name  varchar [pk, note: 'composite key part 1']
+  topic         varchar [pk, note: 'composite key part 2']
+  last_offset   bigint
+}
+
+// Note: all real (same-database) foreign keys are declared inline on their
+// columns above via `[ref: ...]` — see team_members.team_id,
+// tournament_rules/registration/announcement/faqs/price.tournament_id,
+// match_details.round_id, match_participants.match_details_id,
+// conversation_participants/messages.conversation_id,
+// message_read_status.message_id, user_subscriptions.subscription_plan_id,
+// collaboration_requests.campaign_id, and the three 1:1 links from
+// user_profiles/brand_details/organizer_details back to users.
